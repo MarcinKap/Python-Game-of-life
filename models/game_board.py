@@ -39,7 +39,59 @@ class GameBoard:
         neighbour_cells = list( )
         for i in range(row - 1, row + 2):
             for j in range(column - 1, column + 2):
-                if i >= 0 and j >= 0 and not (i == row and j == column) and not j > self.size - 1\
+                if i >= 0 and j >= 0 and not (i == row and j == column) and not j > self.size - 1 \
                         and not i > self.size - 1:
                     neighbour_cells.append(self.cells[i][j])
         return neighbour_cells
+
+    def get_next_state(self):
+        new_cells = []
+        for i in range(self.size):
+            row = []
+            for j in range(self.size):
+                row.append((255, 255, 255))
+            new_cells.insert(i, row)
+
+        for i in range(self.size):
+            for j in range(self.size):
+                neighbours = self.get_neighbour_cells(i, j)
+                # liczba zywych sasiadow
+                filtered = 0
+                # print('komorka: ', i, j)
+                # print('kolor: ', old_cells[i][j].color)
+
+                # sprawdza ilosc zywych sasiadow
+                for neighbour in neighbours:
+                    # print(neighbour.color)
+                    # print('sasiad')
+                    if neighbour.color == (0, 0, 0):
+                        filtered = filtered + 1
+                # print('komorka: ', i, j, 'ilosc zywych sasiadow: ', filtered)
+
+                # print('ilosc zywych sasiadow: ', filtered)
+
+                # martwa komorka
+                if self.cells[i][j].color == (200, 200, 200):
+                    if filtered == 3:
+                        # new_cells[i][j].color = (0, 0, 0)
+                        new_cells[i][j] = (0, 0, 0)
+                    else:
+                        new_cells[i][j] = (200, 200, 200)
+
+                # zywa komorka
+                if self.cells[i][j].color == (0, 0, 0):
+                    if filtered == 3 or filtered == 2:
+                        new_cells[i][j] = (0, 0, 0)
+                    else:
+                        new_cells[i][j] = (200, 200, 200)
+
+        return new_cells
+
+    def change_cell_color(self, array):
+        for i in range(self.size):
+            for j in range(self.size):
+                self.cells[i][j].color = array[i][j]
+
+    def new_state(self):
+        state = self.get_next_state()
+        self.change_cell_color(state)
