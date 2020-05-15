@@ -16,5 +16,3 @@ class ButtonView(AbstractView):
             self.__model.draw(screenboard, color )
 
         self.__model.draw(screenboard)
-
-        # game_description.draw(screen_board, (0, 0, 0))

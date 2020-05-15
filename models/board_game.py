@@ -56,10 +56,7 @@ class BoardGame:
         for i in range(self.size):
             for j in range(self.size):
                 neighbours = self.get_neighbour_cells(i, j)
-                # liczba zywych sasiadow
                 filtered = 0
-                # print('komorka: ', i, j)
-                # print('kolor: ', old_cells[i][j].color)
 
                 # sprawdza ilosc zywych sasiadow
                 for neighbour in neighbours:
@@ -67,14 +64,10 @@ class BoardGame:
                     # print('sasiad')
                     if neighbour.get_color() == (0, 0, 0):
                         filtered = filtered + 1
-                # print('komorka: ', i, j, 'ilosc zywych sasiadow: ', filtered)
-
-                # print('ilosc zywych sasiadow: ', filtered)
 
                 # martwa komorka
                 if self.cells[i][j].get_color() == (200, 200, 200):
                     if filtered == 3:
-                        # new_cells[i][j].color = (0, 0, 0)
                         new_cells[i][j] = (0, 0, 0)
                     else:
                         new_cells[i][j] = (200, 200, 200)

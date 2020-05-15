@@ -16,14 +16,3 @@ class BoardGameView(AbstractView):
             self.__model.draw(screenboard, color)
 
         self.__model.draw(screenboard)
-
-        # game_description.draw(screen_board, (0, 0, 0))
-
-
-    # @property
-    # def main_window(self):
-    #     return self.__main_window
-    #
-    #
-    # def show(self, *args):
-    #     self.
