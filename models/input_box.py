@@ -18,6 +18,17 @@ class InputBox:
         self.active = False
         self.name = name
 
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, val):
+        self.__name = val
+
+
+
+
     def handle_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
             # If the user clicked on the input_box rect.

@@ -13,8 +13,8 @@ class InputBoxController(AbstractController):
         self.model.width = width
         self.model.height = height
         self.model.font_size = font_size
-        self.model.text =text
+        self.model.text = text
         self.model.name = name
 
-
-
+    def get_name(self):
+        return self.model.name
