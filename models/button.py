@@ -3,14 +3,78 @@ import pygame
 
 class Button( ):
     def __init__(self, color, x, y, width, height, font_size, text='', name=''):
-        self.color = color
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.text = text
-        self.font_size = font_size
-        self.name = name
+        self.__color = color
+        self.__x = x
+        self.__y = y
+        self.__width = width
+        self.__height = height
+        self.__text = text
+        self.__font_size = font_size
+        self.__name = name
+
+    @property
+    def color(self):
+        return self.__color
+
+    @color.setter
+    def color(self, val):
+        self.__color= val
+
+    @property
+    def x(self):
+        return self.__x
+
+    @x.setter
+    def x(self, val):
+        self.__x = val
+
+    @property
+    def y(self):
+        return self.__y
+
+    @y.setter
+    def y(self, val):
+        self.__y = val
+
+    @property
+    def width(self):
+        return self.__width
+
+    @width.setter
+    def width(self, val):
+        self.__width = val
+
+    @property
+    def text(self):
+        return self.__text
+
+    @text.setter
+    def text(self, val):
+        self.__text = val
+
+    @property
+    def height(self):
+        return self.__height
+
+    @height.setter
+    def height(self, val):
+        self.__height = val
+
+    @property
+    def font_size(self):
+        return self.__font_size
+
+    @font_size.setter
+    def font_size(self, val):
+        self.__font_size = val
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, val):
+        self.__name = val
 
     def draw(self, win, outline=None):
         # Call this method to draw the button on the screen

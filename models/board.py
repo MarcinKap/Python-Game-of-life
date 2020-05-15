@@ -4,7 +4,9 @@ import random
 
 import pygame
 
-from models.game_board import GameBoard
+from controllers.board_game_controller import BoardGameController
+from models.board_game import BoardGame
+from views.board_game_view import BoardGameView
 
 
 class Board:
@@ -45,7 +47,10 @@ class Board:
         return pygame.display.set_mode((self.__x_size, self.__y_size))
 
     def create_empty_game_board(self):
-        return GameBoard(1)
+        model = BoardGame(1)
+        view = BoardGameView(model)
+        controller = BoardGameController(model, view)
+        return controller
 
     def add_button(self, button):
         self.__buttons.append(button)
@@ -55,10 +60,10 @@ class Board:
 
     def find_button(self, name):
         for button in self.__buttons:
-            if button.name == name:
+            if button.model.name == name:
                 return button
 
     def find_input(self, name):
         for input in self.__inputs:
-            if input.name == name:
+            if input.model.name == name:
                 return input

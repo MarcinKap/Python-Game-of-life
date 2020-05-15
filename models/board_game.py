@@ -2,10 +2,12 @@ import random
 
 import pygame
 
+from controllers.button_controller import ButtonController
 from models.button import Button
+from views.button_view import ButtonView
 
 
-class GameBoard:
+class BoardGame:
     def __init__(self, size):
         self.__size = size
         self.__cells = self.create_random_cells(size)
@@ -29,8 +31,7 @@ class GameBoard:
         for i in range(size):
             row = []
             for j in range(size):
-                row.append(
-                    Button(random.choice(randomlist), 30 * i + k, 30 * j + 10, 23, 23, 18, ''))
+                row.append(self.create_cell(random.choice(randomlist), 30 * i + k, 30 * j + 10, 23, 23, 18, ''))
             cells.insert(i, row)
         return cells
 
@@ -64,14 +65,14 @@ class GameBoard:
                 for neighbour in neighbours:
                     # print(neighbour.color)
                     # print('sasiad')
-                    if neighbour.color == (0, 0, 0):
+                    if neighbour.get_color() == (0, 0, 0):
                         filtered = filtered + 1
                 # print('komorka: ', i, j, 'ilosc zywych sasiadow: ', filtered)
 
                 # print('ilosc zywych sasiadow: ', filtered)
 
                 # martwa komorka
-                if self.cells[i][j].color == (200, 200, 200):
+                if self.cells[i][j].get_color() == (200, 200, 200):
                     if filtered == 3:
                         # new_cells[i][j].color = (0, 0, 0)
                         new_cells[i][j] = (0, 0, 0)
@@ -79,7 +80,7 @@ class GameBoard:
                         new_cells[i][j] = (200, 200, 200)
 
                 # zywa komorka
-                if self.cells[i][j].color == (0, 0, 0):
+                if self.cells[i][j].get_color() == (0, 0, 0):
                     if filtered == 3 or filtered == 2:
                         new_cells[i][j] = (0, 0, 0)
                     else:
@@ -90,8 +91,18 @@ class GameBoard:
     def change_cell_color(self, array):
         for i in range(self.size):
             for j in range(self.size):
-                self.cells[i][j].color = array[i][j]
+                self.cells[i][j].set_color(array[i][j])
 
     def new_state(self):
         state = self.get_next_state()
         self.change_cell_color(state)
+
+    def create_cell(self, color, x, y, width, height, font_size, text='', name=''):
+        model = Button(color, x, y, width, height, font_size, text, name)
+        view = ButtonView(model)
+        controller = ButtonController(model, view)
+        return controller
+
+
+
+
